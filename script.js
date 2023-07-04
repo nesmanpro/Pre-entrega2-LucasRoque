@@ -1,10 +1,16 @@
+// Preguntamos y almacenamos el nombre del cliente
 
+let nombreCliente = prompt('Cómo te llamas?');
+
+// Servicios disponibles
 
 let gastoTotal = 0;
-let producto = prompt ('Bienvenido!\nSelecciona el numero del servicio a contratar:\n\n1 - Branding corporativo ... 800€\n2 - Desarrollo web responsive e interactiva ... 2500€\n3 - Tarifa plana mensual creacion de contenido ... 600€\n4 - Video corporativo ... 900€\n\n0 - Para finalizar\n');
+let producto = prompt (`Bienvenido ${nombreCliente}!\nSelecciona el numero del servicio a contratar:\n\n1 - Branding corporativo ... 800€\n2 - Desarrollo web responsive e interactiva ... 2500€\n3 - Tarifa plana mensual creacion de contenido ... 600€\n4 - Video corporativo ... 900€\n\n0 - Para finalizar\n`);
+
+// condicional para informar al usuario que servicios puede seleccionar
 
 while(producto != '0') {
-// condicional para informar al usuario que el Libro se. agrego al carrito
+
     switch (producto){
         case '1':
             alert('Agregaste:\n1 - Branding corporativo ... 800€');
@@ -30,9 +36,11 @@ while(producto != '0') {
     
 }
 
-alert(`El precio total del presupuesto es:\n\nSubtotal:   ${gastoTotal}€\n     + IVA:   ${gastoTotal*0.21}€\n----------------\n  TOTAL:   ${gastoTotal*1.21}€`);
+alert(`${nombreCliente}, el presupuesto que solicitas seria de:\n\nSubtotal:   ${gastoTotal}€\n     + IVA:   ${gastoTotal*0.21}€\n----------------\n  TOTAL:   ${gastoTotal*1.21}€`);
 
-function inclrementarTotal(precioLibro){
-    gastoTotal = gastoTotal + precioLibro;
-    console.log(`Subtotal hasta el momento ${gastoTotal}€`);
+// Función para uso interno
+
+function inclrementarTotal(precioServicio){
+    gastoTotal = gastoTotal + precioServicio;
+    console.log(`Subtotal hasta el momento sin iva es: ${gastoTotal}€`);
 }
