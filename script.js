@@ -53,6 +53,7 @@ if (mayorEdad == 'si' ) {
         console.log(`Subtotal hasta el momento sin iva es: ${gastoTotal}€`);
     }
 
+    // En caso de que no, notificamos    
 } else {
 
 
