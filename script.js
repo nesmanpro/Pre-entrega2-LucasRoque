@@ -1,64 +1,100 @@
-// Preguntamos y almacenamos el nombre y edad del cliente
+// Variables necesarias
 
-const usuario = {
-    nombre: prompt('Indica tu nombre'),
-    edad: prompt('¿Eres mayor de edad? (si/no)'),
+let carrito = [];
+
+// lista de productos 
+
+const productos = [{
+    Id: 1,
+    nombre: "Camiseta",
+    precio: 29.5
+},
+{
+    Id: 2,
+    nombre: "Gorra",
+    precio: 40.9
+},
+{
+    Id: 3,
+    nombre: "Jersey",
+    precio: 60
+},
+{
+    Id: 4,
+    nombre: "Sombrero",
+    precio: 75.5
+},
+{
+    Id: 5,
+    nombre: "Bicicleta",
+    precio: 1100
+},
+{
+    Id: 6,
+    nombre: "Mochila",
+    precio: 120
 }
-0
-let mayorEdad = usuario.edad.toLowerCase()
+];
 
-// Preguntamos si el usuario es mayor de edad
 
-if (mayorEdad == 'si' ) {
+console.log('Estos son los productos que hay ahora mismo disponibles:');
+let updatedList = productos.map((producto) => {
+    console.table(`Productos añadidos: (ID: ${producto.Id}): ${producto.nombre},\nprecio: $${producto.precio}`);
+});
 
-    // En caso de que si, iniciamos el proceso de venta
+// prompt para iniciar el ciclo o no
+let newProd = prompt('Viendo la lista de productos en la consola, quieres añadir algo al carrito? Escribe S para SI, o N para NO').toLocaleUpperCase();
 
-    let gastoTotal = 0;
-    let producto = prompt (`Bienvenido ${usuario.nombre}!\nSelecciona el numero del servicio a contratar:\n\n1 - Branding corporativo ... 800€\n2 - Desarrollo web responsive e interactiva ... 2500€\n3 - Tarifa plana mensual creacion de contenido ... 600€\n4 - Video corporativo ... 900€\n\n0 - Para finalizar\n`);
-    // condicional para informar al usuario qué servicios puede seleccionar
-    
-    while(producto != '0') {
-    
-        switch (producto){
-            case '1':
-                alert('Agregaste:\n1 - Branding corporativo ... 800€');
-                inclrementarTotal(800);
-                break;
-            case '2':
-                alert ('Agregaste:\n2 - Desarrollo web responsive e interactiva ... 2500€');
-                inclrementarTotal(2500);
-                break;
-            case '3':
-                alert('Agregaste:\n3 - Tarifa plana mensual creacion de contenido ... 600€');
-                inclrementarTotal(600);
-                break;
-            case '4':
-                alert('Agregaste:\n4 - Video orporativo ... 900€');
-                inclrementarTotal(900);
-                break;
-            default:
-                alert ('Ops!!\nParece que ese producto no existe! 👀');
-                break;
+
+function TotalCarrito(){
+    let total = 0;
+    carrito.forEach((producto) => {
+        total += producto.precio;
+    })
+    return total;
+}
+
+
+
+
+// console.table("Carrito:", carrito);
+
+
+
+
+
+while(newProd != 'N'){
+    if(newProd != 'S'){
+        alert('Vaya! Algo ha slido mal. 🚨 \n Ingresa S para SI, N para NO.');
+    }else{
+        function AgregarAlCarrito(idProducto) {
+            const prodEncontrado = productos.find((producto) =>producto.Id === idProducto);
+            if (prodEncontrado){
+                carrito.push(prodEncontrado);
+                console.log(`Producto "${prodEncontrado.nombre}" agregado al carrito.`);
+            } else {
+                console.log('Producto no encontrado. 🤔');
+            }
         }
-            producto = prompt('¿Deseas añadir algun otro servicio?\n\n1 - Branding corporativo ... 800€\n2 - Desarrollo web responsive e interactivo ... 2500€\n3 - Tarifa plana mensual creacion de contenido ... 600€\n4 - Video corporativo ... 900€\n\n0 - Para ver presupuesto');
-        
+        AgregarAlCarrito(parseInt(prompt('Indica el ID del producto que quieres añadir')))
     }
+    newProd = prompt('Quieres añadir algo más al carrito? Escribe S para SI, o N para NO').toLocaleUpperCase();
+};
 
-    alert(`${usuario.nombre}, el presupuesto que solicitas seria de:\n\nSubtotal:   ${gastoTotal}€\n     + IVA:   ${gastoTotal*0.21}€\n----------------\n  TOTAL:   ${gastoTotal*1.21}€`);
+// console.log("Total del carrito: " + (TotalCarrito() * 1.21) + '€');
 
-    // Función para uso interno
-
-    function inclrementarTotal(precioServicio){
-        gastoTotal = gastoTotal + precioServicio;
-        console.log(`Subtotal hasta el momento sin iva es: ${gastoTotal}€`);
-    }
-
-    // En caso de que no, notificamos    
-} else {
+// Enumera los productos que hay en el carrito y su precio
 
 
-    alert('Lo sentimos, debes ser mayor de edad para recibir esa información')
+
+// Funcion para calcular el precio subtotal + iva
+function totalCalc(carrito){
+    let total = carrito.reduce((acum, product) => acum + product.precio, 0)
+    return total;
 }
 
 
+// Función para calcular el total del carrito
 
+const totalprecio = totalCalc(carrito)
+console.log(`Lo que da un total de: ${totalCalc() * 1.21}  iva incluido`);
